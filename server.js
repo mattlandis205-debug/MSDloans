@@ -161,6 +161,24 @@ async function refreshRatesData() {
   }
 }
 
+// API Origin Lock Middleware
+app.use('/api', (req, res, next) => {
+  const origin = req.headers.origin;
+  const referer = req.headers.referer;
+  const targetHost = origin || referer || '';
+
+  if (targetHost) {
+    const isLocal = targetHost.includes('localhost') || targetHost.includes('127.0.0.1');
+    const isCloudRun = targetHost.includes('msdloansim-') && targetHost.includes('.run.app');
+    
+    if (!isLocal && !isCloudRun) {
+      console.warn(`Blocked unauthorized access request from origin: ${targetHost}`);
+      return res.status(403).json({ error: 'Access Denied: Unauthorized origin.' });
+    }
+  }
+  next();
+});
+
 // Endpoint: Fetch dynamic rates
 app.get('/api/rates', async (req, res) => {
   if (!ratesCache.loans || !ratesCache.deposits) {
