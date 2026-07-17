@@ -200,9 +200,19 @@ app.post('/api/rates/refresh', async (req, res) => {
   }
 });
 
-// SPA routing fallback
-app.get('*', (req, res) => {
+// Route: Serve MSDFCU simulator
+app.get('/msdfcu', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'msdfcu.html'));
+});
+
+// Route: Serve agency homepage
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// Catch-all redirect to homepage
+app.get('*', (req, res) => {
+  res.redirect('/');
 });
 
 // Start Express server
