@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SimpliFi Digital | Dynamic Credit Union Calculators</title>
-  <meta name="description" content="SimpliFi Digital designs high-conversion, dynamic rate simulators and calculators for credit unions. Custom branded, automated rates, and zero compliance overhead.">
+  <title>SimpliFi Digital | Money is complicated. Tech can help.</title>
+  <meta name="description" content="SimpliFi Digital designs simple, secure, and beautiful calculators to help credit unions engage members.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -12,257 +12,64 @@
   <link rel="stylesheet" href="landing.css">
 </head>
 <body>
-
-  <!-- Top Header Navigation -->
+  
+  <!-- Header -->
   <header class="main-header">
-    <div class="nav-container">
-      <div class="logo">
-        <i data-lucide="calculator" class="logo-icon"></i>
-        <span>SimpliFi <span class="logo-accent">Digital</span></span>
-      </div>
-      <nav class="nav-menu">
-        <a href="#features">Features</a>
-        <a href="#product">Products</a>
-        <a href="#about">About</a>
-        <a href="#contact" class="btn btn-secondary">Get a Demo</a>
-      </nav>
+    <div class="logo">
+      <i data-lucide="calculator" class="logo-icon"></i>
+      <span>SimpliFi <span class="logo-accent">Digital</span></span>
     </div>
+    <nav class="nav-links">
+      <a href="/msdfcu" target="_blank" class="nav-item">MSDFCU Demo</a>
+      <a href="mailto:contact@simplifitech.org" class="btn-contact">Contact Matt</a>
+    </nav>
   </header>
 
   <!-- Hero Section -->
-  <section class="hero-section">
-    <div class="hero-container">
-      <div class="hero-content">
-        <div class="badge-new">
-          <i data-lucide="sparkles"></i>
-          <span>Supercharging Member Engagement</span>
-        </div>
-        <h1>Dynamic Rate Calculators Built for Credit Unions</h1>
-        <p>Boost your online loan conversions with custom-branded, interactive calculators. Automatically syncs your daily rates with zero IT or database compliance overhead.</p>
-        <div class="hero-actions">
-          <a href="#product" class="btn btn-primary">See Our Products</a>
-          <a href="/msdfcu" target="_blank" class="btn btn-outline">
-            Test Live Demo <i data-lucide="external-link"></i>
-          </a>
-        </div>
+  <main class="hero-container">
+    <div class="hero-content">
+      <span class="sub-tag">SimpliFi Digital</span>
+      <h1>Money is complicated.<br><span class="text-gradient">Tech can help.</span></h1>
+      <p class="hero-description">I design custom-branded, automated loan calculators for regional credit unions. No database compliance, no IT maintenance—just high-converting interactive tools for your members.</p>
+      <div class="actions">
+        <a href="/msdfcu" target="_blank" class="btn-demo">
+          Try MSDFCU Demo <i data-lucide="arrow-up-right"></i>
+        </a>
+        <a href="mailto:contact@simplifitech.org" class="btn-email">
+          Get in Touch
+        </a>
       </div>
-      <div class="hero-visual">
-        <div class="mock-device-frame">
-          <div class="mock-header">
-            <span class="dot red"></span>
-            <span class="dot yellow"></span>
-            <span class="dot green"></span>
-            <span class="mock-title">msdloansimulator.simplifitech.org</span>
-          </div>
-          <div class="mock-body">
-            <div class="mock-ui">
-              <div class="mock-sidebar">
-                <div class="line title"></div>
-                <div class="line select"></div>
-                <div class="line select"></div>
-                <div class="line slider"></div>
-                <div class="line slider"></div>
-              </div>
-              <div class="mock-main">
-                <div class="grid-2">
-                  <div class="card bg-accent"></div>
-                  <div class="card"></div>
-                </div>
-                <div class="chart-box"></div>
-              </div>
-            </div>
-          </div>
+    </div>
+
+    <!-- Visual Dashboard Floating Metric -->
+    <div class="hero-visual">
+      <div class="preview-card">
+        <div class="preview-header">
+          <i data-lucide="sparkles" class="text-indigo"></i>
+          <span>Auto Loan Simulator</span>
+        </div>
+        <div class="preview-metric">
+          <span class="label">Monthly Payment</span>
+          <span class="value">$358.42</span>
+        </div>
+        <div class="preview-bar-container">
+          <div class="preview-bar principal" style="width: 82%;"></div>
+          <div class="preview-bar interest" style="width: 18%;"></div>
+        </div>
+        <div class="preview-legend">
+          <span>Principal (82%)</span>
+          <span>Interest (18%)</span>
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- Features Section -->
-  <section id="features" class="features-section">
-    <div class="section-header">
-      <h2>Why Credit Unions Choose SimpliFi Digital</h2>
-      <p>We build lightweight utilities that sit on top of your public data, helping members visualize their lending advantages without complex integrations.</p>
-    </div>
-    <div class="features-grid">
-      
-      <div class="feature-card">
-        <div class="feature-icon bg-blue">
-          <i data-lucide="refresh-cw"></i>
-        </div>
-        <h3>Daily Automated Rates</h3>
-        <p>Our background crawler dynamically scrapes your public daily rate tables. Your calculators are always accurate with zero manual maintenance.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon bg-green">
-          <i data-lucide="shield-check"></i>
-        </div>
-        <h3>Zero Compliance Overhead</h3>
-        <p>Stateless architecture means we collect, store, and transmit zero member PII. Completely isolated from your core banking databases.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon bg-purple">
-          <i data-lucide="palette"></i>
-        </div>
-        <h3>Custom Branded Styling</h3>
-        <p>No generic templates. Every widget is meticulously designed to match your credit union's exact logos, colors, fonts, and stylesheets.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon bg-orange">
-          <i data-lucide="trending-up"></i>
-        </div>
-        <h3>Member Acceleration Tools</h3>
-        <p>Interactive amortization, extra payment simulations, and bank-vs-credit union savings comparisons guide members directly to your apply button.</p>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Product Spotlight Section -->
-  <section id="product" class="product-section">
-    <div class="product-container">
-      <div class="product-info">
-        <div class="section-tag">Featured Solution</div>
-        <h2>Merck Sharp & Dohme FCU Loan Simulator</h2>
-        <p>See our custom solution in action. We designed a dual-panel dashboard that crawls MSDFCU’s daily rate sheets, handles auto-term parsing, models auto/mortgage payment options, and displays animated payoff curves.</p>
-        <ul class="product-bullets">
-          <li><i data-lucide="check" class="bullet-icon"></i> Dynamic rate scraping mapping</li>
-          <li><i data-lucide="check" class="bullet-icon"></i> Extra payment interest savings calculator</li>
-          <li><i data-lucide="check" class="bullet-icon"></i> Direct link to secure loan application portal</li>
-          <li><i data-lucide="check" class="bullet-icon"></i> High-resolution CSV amortization schedule downloader</li>
-        </ul>
-        <div class="product-actions">
-          <a href="/msdfcu" target="_blank" class="btn btn-primary">
-            Open Live Calculator <i data-lucide="arrow-right"></i>
-          </a>
-        </div>
-      </div>
-      <div class="product-screenshot">
-        <div class="interactive-preview-card">
-          <div class="preview-header">
-            <h4>Live Preview Status</h4>
-            <span class="preview-badge"><span class="pulse-dot"></span> Active</span>
-          </div>
-          <div class="preview-content">
-            <div class="preview-row">
-              <span>Client Name:</span>
-              <strong>MSDFCU</strong>
-            </div>
-            <div class="preview-row">
-              <span>Scraper Connection:</span>
-              <strong class="text-success">Connected (LKCS Widget)</strong>
-            </div>
-            <div class="preview-row">
-              <span>Calculations:</span>
-              <strong>Installment & Accelerated</strong>
-            </div>
-            <div class="preview-row">
-              <span>Uptime:</span>
-              <strong>99.9% (GCP Cloud Run)</strong>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- About / Story Section -->
-  <section id="about" class="about-section">
-    <div class="about-container">
-      <div class="about-image">
-        <div class="avatar-card">
-          <div class="avatar-circle">
-            <i data-lucide="user" class="avatar-icon"></i>
-          </div>
-          <h3>Matt Landis</h3>
-          <p>Founder, SimpliFi Digital</p>
-          <span class="badge-role">Local Educator & Member</span>
-        </div>
-      </div>
-      <div class="about-content">
-        <h2>Transparent, Community-Focused Development</h2>
-        <p>I am a local high school educator, tech builder, and proud credit union member. My mission is to help regional credit unions compete with national commercial banks by delivering high-fidelity digital interfaces at a fraction of standard software agency costs.</p>
-        <p>By leveraging advanced AI-collaborative engineering workflows (Google Antigravity), I design, test, and deploy enterprise-grade serverless calculators independently, passing the overhead savings directly to you.</p>
-        <div class="quote-card">
-          <p class="quote-text">"Credit unions are built on the principle of members helping members. I built SimpliFi Digital to empower regional institutions with modern web utilities that drive organic member growth."</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact / Lead Form Section -->
-  <section id="contact" class="contact-section">
-    <div class="contact-container">
-      <div class="contact-header">
-        <h2>Request a Free Custom Demo</h2>
-        <p>Send me a link to your credit union's current rate page. Within 7 days, I will build and host a custom-branded loan simulator prototype for your team to test for 30 days, completely free.</p>
-        
-        <div class="contact-details">
-          <div class="contact-item">
-            <i data-lucide="mail"></i>
-            <span>contact@simplifitech.org</span>
-          </div>
-          <div class="contact-item">
-            <i data-lucide="map-pin"></i>
-            <span>Pennsylvania, USA</span>
-          </div>
-        </div>
-      </div>
-      <div class="contact-form-card">
-        <form id="lead-form" onsubmit="event.preventDefault(); alert('Thank you for reaching out! Matt will contact you at this email address shortly.');">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="name">Your Name</label>
-              <input type="text" id="name" placeholder="John Doe" required>
-            </div>
-            <div class="form-group">
-              <label for="email">Work Email</label>
-              <input type="email" id="email" placeholder="john@mycreditunion.org" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="institution">Credit Union Name</label>
-            <input type="text" id="institution" placeholder="Community Federal Credit Union" required>
-          </div>
-          <div class="form-group">
-            <label for="rate-url">Link to Rates Page (Optional)</label>
-            <input type="url" id="rate-url" placeholder="https://www.mycreditunion.org/rates">
-          </div>
-          <div class="form-group">
-            <label for="message">Message / Notes</label>
-            <textarea id="message" rows="4" placeholder="Hi Matt, we would love to see how a simulator would look with our current auto and home equity rates."></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary btn-block">Send Request</button>
-        </form>
-      </div>
-    </div>
-  </section>
+  </main>
 
   <!-- Footer -->
-  <footer class="footer-section">
-    <div class="footer-container">
-      <div class="footer-brand">
-        <div class="logo">
-          <i data-lucide="calculator" class="logo-icon"></i>
-          <span>SimpliFi <span class="logo-accent">Digital</span></span>
-        </div>
-        <p>Supercharging member acquisition and rate transparency for credit unions.</p>
-      </div>
-      <div class="footer-links">
-        <h4>Connect</h4>
-        <a href="mailto:contact@simplifitech.org">contact@simplifitech.org</a>
-        <a href="https://github.com/mattlandis205-debug" target="_blank">GitHub</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2026 SimpliFi Digital. All rights reserved. Independently built in Pennsylvania.</p>
-    </div>
+  <footer class="main-footer">
+    <p>© 2026 SimpliFi Digital • Built by Matt Landis, Educator & Member • contact@simplifitech.org</p>
   </footer>
 
   <script>
-    // Initialize Lucide Icons
     lucide.createIcons();
   </script>
 </body>
