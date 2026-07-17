@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MSDFCU Daily Loan Simulator | Merck Sharp & Dohme Federal Credit Union</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Calculate your loan payments with real-time daily rates from Merck Sharp & Dohme Federal Credit Union. Try our dynamic auto, home equity, and mortgage calculator.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="header">
+    <div class="header-container">
+      <div class="brand">
+        <!-- Merck Sharp & Dohme FCU stylized branding -->
+        <div class="logo-placeholder">
+          <span class="logo-symbol">m</span>
+          <div class="logo-text">
+            <span class="logo-title">MSD<span class="logo-highlight">FCU</span></span>
+            <span class="logo-sub">Merck Sharp & Dohme Federal Credit Union</span>
+          </div>
+        </div>
+      </div>
+      <div class="header-status">
+        <span class="status-indicator"></span>
+        <span id="rate-effective-badge">Fetching live daily rates...</span>
+        <button id="refresh-rates-btn" class="icon-btn" title="Sync Live Rates">
+          <i data-lucide="refresh-cw"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Grid Layout -->
+  <main class="dashboard-grid">
+    
+    <!-- LEFT PANEL: Settings & Inputs -->
+    <section class="panel panel-inputs">
+      <div class="panel-header">
+        <i data-lucide="sliders" class="header-icon"></i>
+        <h2>Simulation Settings</h2>
+      </div>
+      
+      <div class="form-group">
+        <label for="loan-category">Loan Category</label>
+        <div class="select-wrapper">
+          <select id="loan-category">
+            <option value="" disabled selected>Loading rate categories...</option>
+          </select>
+          <i data-lucide="chevron-down" class="select-arrow"></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="loan-product">Loan Product & Term</label>
+        <div class="select-wrapper">
+          <select id="loan-product" disabled>
+            <option value="" disabled selected>Select a category first</option>
+          </select>
+          <i data-lucide="chevron-down" class="select-arrow"></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="flex-label">
+          <label for="interest-rate">Interest Rate (APR)</label>
+          <span id="rate-source-tag" class="badge">Official Daily Rate</span>
+        </div>
+        <div class="input-with-action">
+          <div class="input-icon-wrapper">
+            <input type="number" id="interest-rate" step="0.01" min="0" placeholder="0.00">
+            <span class="input-suffix">%</span>
+          </div>
+          <button id="override-rate-btn" class="secondary-btn" title="Modify Rate">
+            <i data-lucide="edit-3"></i> Custom
+          </button>
+        </div>
+        <p class="input-help" id="default-rate-indicator"></p>
+      </div>
+
+      <div class="form-group">
+        <div class="flex-label">
+          <label for="loan-amount">Borrowing Amount</label>
+          <div class="input-icon-wrapper mini-input">
+            <span class="input-prefix">$</span>
+            <input type="number" id="loan-amount" min="100" value="25000">
+          </div>
+        </div>
+        <div class="slider-wrapper">
+          <input type="range" id="loan-amount-slider" min="1000" max="150000" step="500" value="25000">
+          <div class="slider-labels">
+            <span id="slider-min-lbl">$1,000</span>
+            <span id="slider-max-lbl">$150,000</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Conditional fields (e.g. Down Payment for Vehicles/Home Loans, LTV selectors) -->
+      <div id="down-payment-group" class="form-group conditional-group">
+        <div class="flex-label">
+          <label for="down-payment">Down Payment / Trade-In</label>
+          <div class="input-icon-wrapper mini-input">
+            <span class="input-prefix">$</span>
+            <input type="number" id="down-payment" min="0" value="0">
+          </div>
+        </div>
+        <div class="slider-wrapper">
+          <input type="range" id="down-payment-slider" min="0" max="50000" step="100" value="0">
+        </div>
+      </div>
+
+      <div id="ltv-group" class="form-group conditional-group">
+        <label for="ltv-select">Loan to Value Ratio (LTV)</label>
+        <div class="select-wrapper">
+          <select id="ltv-select">
+            <option value="80" selected>Up to 80% LTV</option>
+            <option value="90">81% to 90% LTV (+0.50% APR)</option>
+          </select>
+          <i data-lucide="chevron-down" class="select-arrow"></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="flex-label">
+          <label for="custom-term">Custom Term (Months)</label>
+          <div class="input-icon-wrapper mini-input">
+            <input type="number" id="custom-term" min="1" max="480" value="60">
+          </div>
+        </div>
+        <div class="slider-wrapper">
+          <input type="range" id="custom-term-slider" min="12" max="360" step="12" value="60">
+        </div>
+      </div>
+
+      <div class="form-group accent-group">
+        <div class="flex-label">
+          <label for="extra-payment">
+            <span class="flex-align">
+              <i data-lucide="sparkles" class="inline-icon text-accent"></i>
+              Accelerate: Extra Monthly Payment
+            </span>
+          </label>
+          <div class="input-icon-wrapper mini-input">
+            <span class="input-prefix">$</span>
+            <input type="number" id="extra-payment" min="0" value="0">
+          </div>
+        </div>
+        <div class="slider-wrapper">
+          <input type="range" id="extra-payment-slider" min="0" max="1000" step="10" value="0">
+        </div>
+        <p class="input-help">Simulate paying more monthly to reduce your payoff time and interest expense.</p>
+      </div>
+
+    </section>
+
+    <!-- RIGHT PANEL: Dashboard Output -->
+    <section class="panel panel-dashboard">
+      
+      <!-- Primary KPI Grid -->
+      <div class="kpi-grid">
+        
+        <div class="kpi-card highlight">
+          <div class="kpi-info">
+            <span class="kpi-title">Monthly Payment</span>
+            <span id="monthly-payment-val" class="kpi-value">$0.00</span>
+          </div>
+          <div class="kpi-icon-container">
+            <i data-lucide="dollar-sign"></i>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <span class="kpi-title">Total Interest Paid</span>
+            <span id="total-interest-val" class="kpi-value">$0.00</span>
+          </div>
+          <div class="kpi-icon-container">
+            <i data-lucide="percent"></i>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <span class="kpi-title">Total Cost (Principal + Interest)</span>
+            <span id="total-cost-val" class="kpi-value">$0.00</span>
+          </div>
+          <div class="kpi-icon-container">
+            <i data-lucide="calculator"></i>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <span class="kpi-title">Expected Payoff Date</span>
+            <span id="payoff-date-val" class="kpi-value">-</span>
+          </div>
+          <div class="kpi-icon-container">
+            <i data-lucide="calendar"></i>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Dynamic Extra Payments Savings Notice -->
+      <div id="savings-box" class="savings-alert hidden">
+        <div class="alert-icon">
+          <i data-lucide="trending-down"></i>
+        </div>
+        <div class="alert-content">
+          <h4>Accelerated Payoff Active!</h4>
+          <p>By paying an extra <strong id="savings-extra-val">$0</strong> per month, you will save <strong id="savings-interest-val">$0</strong> in interest charges and payoff your debt <strong id="savings-time-val">0 months</strong> earlier!</p>
+        </div>
+      </div>
+
+      <!-- Competitor Comparison Ribbon -->
+      <div class="competitor-ribbon">
+        <div class="ribbon-title">
+          <i data-lucide="shield-check" class="ribbon-icon"></i>
+          <span>The Credit Union Advantage</span>
+        </div>
+        <div class="ribbon-content">
+          <p>Standard banks average an APR of <strong id="competitor-rate">8.25%</strong> for this loan. Borrowing with MSDFCU saves you roughly <strong id="competitor-savings">$0</strong> over the life of your loan!</p>
+        </div>
+      </div>
+
+      <!-- Visualization and Tables Section -->
+      <div class="tabs-container">
+        <div class="tabs-header">
+          <button class="tab-btn active" data-tab="payoff-tab">
+            <i data-lucide="activity"></i> Payoff Balance Chart
+          </button>
+          <button class="tab-btn" data-tab="schedule-tab">
+            <i data-lucide="table"></i> Amortization Schedule
+          </button>
+          <button class="tab-btn" data-tab="compare-tab">
+            <i data-lucide="award"></i> Cost Breakdown
+          </button>
+        </div>
+
+        <div class="tabs-content">
+          <!-- Tab 1: Payoff Chart -->
+          <div id="payoff-tab" class="tab-panel active">
+            <div class="chart-container">
+              <canvas id="amortizationChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Tab 2: Amortization Table -->
+          <div id="schedule-tab" class="tab-panel">
+            <div class="table-actions">
+              <span class="table-info">Yearly Summary Table</span>
+              <div class="action-buttons">
+                <button id="toggle-schedule-view-btn" class="tertiary-btn">
+                  <i data-lucide="eye"></i> Show Monthly Details
+                </button>
+                <button id="download-schedule-btn" class="tertiary-btn">
+                  <i data-lucide="download"></i> Export CSV
+                </button>
+              </div>
+            </div>
+            <div class="table-scroll-container">
+              <table id="amortization-table">
+                <thead>
+                  <tr>
+                    <th>Year</th>
+                    <th>Beginning Balance</th>
+                    <th>Principal Paid</th>
+                    <th>Interest Paid</th>
+                    <th>Extra Payments</th>
+                    <th>Ending Balance</th>
+                  </tr>
+                </thead>
+                <tbody id="amortization-tbody">
+                  <!-- Injected via JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Tab 3: Cost Breakdown (Doughnut Chart + Tier details) -->
+          <div id="compare-tab" class="tab-panel">
+            <div class="compare-split">
+              <div class="mini-chart-container">
+                <canvas id="breakdownChart"></canvas>
+              </div>
+              <div class="compare-details">
+                <h3>Interest vs. Principal Cost Ratio</h3>
+                <p>A graphical representation of the percentage of money going towards paying back what you borrowed vs interest fees paid to the lender.</p>
+                <ul class="breakdown-list">
+                  <li>
+                    <span class="color-dot principal-dot"></span>
+                    <span>Principal Component:</span>
+                    <strong id="breakdown-principal-percent">0%</strong>
+                  </li>
+                  <li>
+                    <span class="color-dot interest-dot"></span>
+                    <span>Interest Component:</span>
+                    <strong id="breakdown-interest-percent">0%</strong>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Selected Product compliance note/disclaimer -->
+      <div class="disclaimer-footer">
+        <h4 id="disclaimer-title">Disclosures & Disclaimers</h4>
+        <p id="disclaimer-content">Rates subject to change without notice. All loans subject to credit approval.</p>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="main-footer">
+    <div class="footer-container">
+      <p>© 2026 Merck Sharp & Dohme Federal Credit Union. All rights reserved.</p>
+      <div class="footer-logos">
+        <span class="ncua-logo" title="Federally Insured by NCUA">NCUA</span>
+        <span class="equal-housing" title="Equal Housing Lender">Equal Housing Lender</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>
