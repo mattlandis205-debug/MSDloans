@@ -945,3 +945,95 @@ tbody tr:hover {
   font-weight: 500;
   text-transform: uppercase;
 }
+
+/* Apply CTA Card Callout */
+.apply-cta-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(170, 188, 91, 0.12) 0%, rgba(0, 20, 137, 0.05) 100%);
+  border: 1px dashed var(--secondary-light);
+  border-radius: 1rem;
+  padding: 1.25rem 1.5rem;
+  gap: 1.5rem;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+  margin-top: 0.5rem;
+}
+
+.apply-cta-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.cta-info h4 {
+  font-size: 1.15rem;
+  color: var(--primary);
+  margin-bottom: 0.2rem;
+  font-family: var(--font-title);
+  font-weight: 700;
+}
+
+@media (prefers-color-scheme: dark) {
+  .cta-info h4 {
+    color: var(--accent);
+  }
+}
+
+.cta-info p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--primary);
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+  box-shadow: 0 4px 12px rgba(0, 20, 137, 0.25);
+  white-space: nowrap;
+}
+
+.cta-button:hover {
+  background-color: var(--primary-light);
+  transform: translateX(3px);
+}
+
+.cta-button i {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .apply-cta-card {
+    background: linear-gradient(135deg, rgba(170, 188, 91, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+  }
+  .cta-button {
+    background-color: var(--primary-light);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  .cta-button:hover {
+    background-color: var(--accent);
+    color: #1e293b;
+  }
+}
+
+@media (max-width: 600px) {
+  .apply-cta-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.25rem;
+    padding: 1.5rem;
+  }
+  .cta-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
