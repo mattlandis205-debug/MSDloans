@@ -200,6 +200,20 @@ app.post('/api/rates/refresh', async (req, res) => {
   }
 });
 
+// Subdomain host redirection middleware
+app.use((req, res, next) => {
+  const host = req.get('host') || '';
+  if (host.startsWith('psers.') || host.startsWith('teacher.')) {
+    return res.redirect('https://pateacherdone.com');
+  }
+  next();
+});
+
+// Route: Redirect to PA Teacher retirement calculator
+app.get('/psers', (req, res) => {
+  res.redirect('https://pateacherdone.com');
+});
+
 // Route: Serve MSDFCU simulator
 app.get('/msdfcu', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'msdfcu.html'));
